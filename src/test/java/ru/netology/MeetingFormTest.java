@@ -35,7 +35,7 @@ public class MeetingFormTest {
         $("[data-test-id=name] input").setValue("Валиков Илья");
         $("[data-test-id=phone] input").setValue("+12345678909");
         $("[data-test-id=agreement]").click();
-        $(byText("Забронироват")).click();
+        $(byText("Забронировать")).click();
         $(withText("Успешно!")).shouldBe(Condition.visible, Duration.ofSeconds(15));
 
 
