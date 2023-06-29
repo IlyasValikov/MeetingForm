@@ -1,6 +1,7 @@
 package ru.netology;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ public class MeetingFormTest {
 
     }
     private String dates(int addedDays) {
-        LocalDate date = LocalDate.of(2023,6,29);
+        LocalDate date = LocalDate.now();
         LocalDate newDate = date.plusDays(addedDays);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String dateAdd = newDate.format(dateTimeFormatter);
@@ -36,7 +37,8 @@ public class MeetingFormTest {
         $("[data-test-id=phone] input").setValue("+12345678909");
         $("[data-test-id=agreement]").click();
         $(byText("Забронировать")).click();
-        $(withText("Успешно!")).shouldBe(Condition.visible, Duration.ofSeconds(15));
+        $(("[data-test-id=notification]")).shouldBe(Condition.visible, Duration.ofSeconds(15));
+        $("[data-test-id=notification]").shouldHave(Condition.text("Успешно! " + "Встреча успешно забронирована на " + dates(7)));
 
 
     }
